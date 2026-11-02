@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#eae8dd" />
+  <meta name="description" content="Sơn Tự — không gian chùa 3D đa người chơi bằng tiếng Việt. Đi dạo, dâng hương, lạy 108 lần, lần tràng hạt, gõ mõ, nghe kinh trong một thế giới an nhiên." />
+  <meta property="og:title" content="Sơn Tự · Một khoảng lặng cho bạn" />
+  <meta property="og:description" content="Không gian chùa 3D với nghi lễ và nhiều người cùng hiện diện. Không cần đăng nhập hay trò chuyện." />
+  <meta property="og:locale" content="vi_VN" />
+  <title>Sơn Tự · Một khoảng lặng cho bạn</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <main id="boot" class="boot" role="status" aria-live="polite">
+      <div class="boot-icon" aria-hidden="true">⌂</div>
+      <div class="boot-eyebrow">MỘT CHỐN LẶNG YÊN</div>
+      <h1>Sơn Tự</h1>
+      <p id="boot-text">Đang mở cánh cửa chính điện…</p>
+      <div class="boot-dot" aria-hidden="true"></div>
+      <button id="boot-retry" hidden type="button" onclick="location.reload()">Thử tải lại</button>
+    </main>
+
+    <div id="experience" class="experience" hidden>
+      <canvas id="temple" aria-label="Khung cảnh ngôi chùa 3D" tabindex="0"></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+      <header class="topbar">
+        <div class="brand"><span class="brand-symbol" aria-hidden="true">⌂</span><div><b>SƠN TỰ</b><small>Chốn an nhiên giữa đời thường</small></div></div>
+        <div class="top-right">
+          <span class="demo-chip" id="presence-chip" role="status" aria-live="polite"><span class="online-dot"></span> Khách tham quan mô phỏng</span><span class="clock-chip" id="korea-clock" title="Giờ Seoul, Hàn Quốc">Giờ Seoul · --:--</span>
+          <button class="icon-button" id="sound-button" type="button" aria-label="Bật âm thanh thiên nhiên" title="Bật hoặc tắt âm thanh thiên nhiên">♫</button>
+          <button class="icon-button" id="help-button" type="button" aria-label="Hướng dẫn">?</button>
+        </div>
+      </header>
+      <aside class="info-panel" aria-live="polite">
+        <span class="eyebrow" id="room-kicker">CHÍNH ĐIỆN · BÌNH AN</span>
+        <h2 id="scene-title">Dành cho mình một khoảng lặng</h2>
+        <p id="scene-desc">Ở đây, bạn không cần vội vã. Hãy bước đi, cúi chào hoặc chỉ ngồi yên.</p>
+        <div class="identity"><span class="identity-orb">✦</span><span>Bạn là <strong id="player-name">Mây bình yên</strong></span></div>
+      </aside>
+      <div class="side-actions">
+        <button id="room-button" class="side-button" type="button"><span aria-hidden="true">⌂</span> Chọn không gian</button>
+        <button id="reset-button" class="side-button" type="button"><span aria-hidden="true">↺</span> Về cổng chùa</button><button id="quality-button" class="side-button" type="button"><span aria-hidden="true">◈</span> Đồ họa: tự động</button><button id="donation-button" class="side-button" type="button"><span aria-hidden="true">♡</span> Hòm công đức</button>
+      </div>
+      <div class="focus-note" id="focus-note" role="status" aria-live="polite">Nhấp vào sàn để đi đến · WASD để đi · Kéo để xoay góc nhìn</div>
+      <div id="joystick" class="joystick" aria-label="Điều khiển di chuyển bằng cảm ứng"><div id="joystick-knob" class="joystick-knob"></div></div>
+      <div class="bottom-region">
+        <div class="stats-line"><span>108 LẠY</span><span id="bow-count">0 / 108</span><div class="progress"><div id="bow-progress"></div></div></div>
+        <nav class="action-bar" aria-label="Hoạt động trong chùa">
+          <button class="action-button" id="bow-button" type="button"><span class="action-symbol">🙇</span><span id="bow-label">Lạy Phật</span><small>1 / E / Space</small></button>
+          <button class="action-button" id="beads-button" type="button"><span class="action-symbol">📿</span><span>Tràng hạt</span><small>Phím 2</small></button>
+          <button class="action-button" id="greet-button" type="button"><span class="action-symbol">🙏</span><span>Chắp tay</span><small>Phím 3</small></button>
+          <button class="action-button" id="dance-button" type="button"><span class="action-symbol">♫</span><span>Nhảy múa</span><small>Phím 4</small></button>
+          <button class="action-button" id="woodblock-button" type="button"><span class="action-symbol">🔔</span><span id="woodblock-label">Gõ mõ</span><small>Phím 5</small></button>
+          <button class="action-button" id="offer-button" type="button"><span class="action-symbol">🪔</span><span>Dâng hương</span><small>Phím 6</small></button>
+          <button class="action-button" id="chant-button" type="button"><span class="action-symbol">🎵</span><span>Tụng kinh</span><small>Âm thanh</small></button>
+        </nav>
+        <div class="footnote">Không trò chuyện · Không đăng nhập · Không xếp hạng</div>
+      </div>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="overlay" id="welcome" aria-hidden="false">
+      <section class="welcome-card" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+        <div class="welcome-seal" aria-hidden="true">⌂</div>
+        <div class="eyebrow">NƠI MỌI NGƯỜI NGỒI CÙNG NHAU TRONG YÊN LẶNG</div>
+        <h1 id="welcome-title">Sơn Tự</h1>
+        <p class="welcome-subtitle">Bạn có thể đến đây một lát, lạy một lạy, hoặc chẳng làm gì cả.</p>
+        <div class="rooms" role="group" aria-label="Chọn không gian tham quan">
+          <button type="button" class="room-card selected" data-room="hall" aria-pressed="true"><span class="room-art room-art-hall">⌂</span><span><b>Chính điện</b><small>Ấm áp · Tĩnh tại</small></span><span class="select-mark">✓</span></button>
+          <button type="button" class="room-card" data-room="garden" aria-pressed="false"><span class="room-art room-art-garden">❋</span><span><b>Vườn thiền</b><small>Xanh mát · Thong dong</small></span><span class="select-mark">✓</span></button>
+          <button type="button" class="room-card" data-room="moon" aria-pressed="false"><span class="room-art room-art-dawn">☾</span><span><b>Sân trăng</b><small>Ánh đèn · Âm nhạc · Múa nhẹ</small></span><span class="select-mark">✓</span></button>
+        </div>
+        <div class="server-pickers"><label>Điện / phòng<select id="server-number" aria-label="Chọn phòng"><option value="1">maru-1</option></select></label><label>Phiên bản<select id="server-instance" aria-label="Chọn phiên bản"><option value="0">0</option></select></label><label>Vùng<select id="server-region" aria-label="Chọn vùng"><option value="apac">Châu Á</option><option value="eur">Châu Âu</option><option value="nam">Bắc Mỹ</option><option value="sam">Nam Mỹ</option><option value="oce">Châu Đại Dương</option><option value="afr">Châu Phi</option></select></label></div>
+        <button type="button" class="enter-button" id="enter-button">Bước vào chốn bình yên <span aria-hidden="true">→</span></button>
+        <p class="intro-note">Không cần đăng nhập · Không chat. Đa người chơi thực chỉ hoạt động sau khi kết nối máy chủ; nếu chưa có, khách hiển thị là mô phỏng.</p>
+      </section>
+    </div>
+    <div class="overlay sub-overlay" id="beads-modal" hidden aria-hidden="true">
+      <section class="small-modal" role="dialog" aria-modal="true" aria-labelledby="beads-title">
+        <button class="close-modal" id="beads-close" aria-label="Đóng">×</button>
+        <span class="eyebrow">THỞ VÀO · THỞ RA</span><h2 id="beads-title">Lần tràng hạt</h2>
+        <p>Mỗi hạt là một khoảnh khắc trở về với chính mình.</p>
+        <div id="beads-ring" class="beads-ring" role="group" aria-label="Vòng tràng hạt 27 hạt mô phỏng, đếm 108 hạt"><div class="beads-center"><strong id="beads-number">0</strong><span>/ 108 hạt</span><small id="beads-round">Vòng 0</small></div></div>
+        <button class="enter-button" id="beads-next" type="button">Lần một hạt <span aria-hidden="true">✦</span></button>
+        <small class="modal-hint">Nhấn nút, phím cách hoặc vuốt ngang để lần hạt</small>
+      </section>
+    </div>
+    <div class="overlay sub-overlay" id="help-modal" hidden aria-hidden="true"><section class="small-modal help-card" role="dialog" aria-modal="true" aria-labelledby="help-title"><button class="close-modal" id="help-close" aria-label="Đóng">×</button><span class="eyebrow">CÁCH THAM QUAN</span><h2 id="help-title">Một phút làm quen</h2><p>Nhấp sàn: tự tìm đường đến vị trí. WASD / phím mũi tên: đi lại. Kéo: quay camera. Lăn chuột / chụm hai ngón: zoom.</p><p>1 / E / Space: bắt đầu hoặc dừng lạy liên tục. 2: tràng hạt 108 hạt. 3: chắp tay. 4: nhảy tại Sân trăng. 5: gõ mõ. 6: dâng hương.</p><p>Bản dựng độc lập sử dụng Three.js r180, không sử dụng máy chủ hoặc tài sản gốc của Sansa. Những bài kinh/nhạc phải được cấp phép và cấu hình riêng.</p><p>Đây là bản Việt hóa xây dựng độc lập, lấy cảm hứng từ trải nghiệm Sansa; không phải trang chính thức.</p><button class="enter-button" id="help-done">Tôi đã hiểu</button></section></div>
+    <div class="overlay sub-overlay" id="chant-modal" hidden aria-hidden="true"><section class="small-modal" role="dialog" aria-modal="true" aria-labelledby="chant-title"><button class="close-modal" id="chant-close" aria-label="Đóng">×</button><span class="eyebrow">ÂM THANH TỈNH TÂM</span><h2 id="chant-title">Nghe tụng kinh</h2><p>Giờ tụng chung: <b>05:00 và 18:00 (Seoul)</b>. Nếu có tệp âm thanh được cấp phép, mọi người bật nghe cùng đoạn theo đồng hồ.</p><p id="chant-source">Chưa cấu hình bản thu. Hãy chỉ sử dụng âm thanh có quyền phát công khai.</p><button id="chant-toggle" type="button" class="enter-button">Bật tụng kinh</button><small class="modal-hint">Âm thanh tự tắt khi chuyển sang tab khác.</small></section></div>
+    <div class="overlay sub-overlay" id="donation-modal" hidden aria-hidden="true"><section class="small-modal" role="dialog" aria-modal="true" aria-labelledby="donation-title"><button class="close-modal" id="donation-close" aria-label="Đóng">×</button><span class="eyebrow">TÙY TÂM</span><h2 id="donation-title">Hòm công đức</h2><p>Phiên bản này không thu tiền, không có cổng thanh toán hay QR chuyển khoản. Khi sử dụng thật, hãy công khai đơn vị thụ hưởng và điều khoản trước khi gắn liên kết.</p><button id="donation-done" class="enter-button" type="button">Đã hiểu</button></section></div>
+    <div class="overlay sub-overlay" id="queue-modal" hidden aria-hidden="true"><section class="small-modal" role="dialog" aria-modal="true" aria-labelledby="queue-title"><span class="eyebrow">PHÒNG TẠM ĐẦY</span><h2 id="queue-title">Ngồi đợi một chút nhé</h2><p id="queue-message">Bạn đang ở phòng chờ. Trong khi đợi, vẫn có thể lần tràng hạt.</p><button id="queue-beads" class="enter-button" type="button">Lần tràng hạt trong lúc đợi</button><button id="queue-close" class="text-link" type="button">Đóng thông báo</button></section></div>
+    <noscript><p class="nojs">Cần bật JavaScript để hiển thị không gian 3D.</p></noscript>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+name = "metamong-presence"
+main = "index.js"
+compatibility_date = "2026-10-01"
+
+[durable_objects]
+bindings = [{ name = "ROOMS", class_name = "TempleRoom" }]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["TempleRoom"]
+
+[vars]
+ALLOWED_ORIGIN = "https://xulytiengviet.github.io"

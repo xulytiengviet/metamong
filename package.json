@@ -1,0 +1,9 @@
+{
+  "name": "metamong-son-tu",
+  "private": true,
+  "type": "module",
+  "version": "0.2.0",
+  "description": "Vietnamese 3D meditation temple with optional Cloudflare multiplayer",
+  "scripts": { "test": "node --test src/*.test.js", "check": "node --check src/main.js && node --check worker/index.js" },
+  "license": "MIT"
+}
